@@ -2,55 +2,68 @@
 #include <opencv2/opencv.hpp>
 #include <highgui.h>
 
-struct pos
-{
-	int x=0;
-	int y=0;
-};
-
-struct Region
-{
-	pos p1;
-	pos p2;
-};
-
-void negRegion(Region reg, cv::Mat* img);
+void negRegion(cv::Rect* rect, cv::Mat* img);
+void promptUser(cv::Rect *inputRect,cv::Mat* img); 
 
 int main(int argc, char* argv[])
 {
 	cv::Mat image;
-	cv::Vec3b val;
-	Region R1;
+	cv::Rect rect1;
+
   image= cv::imread(argv[1],CV_LOAD_IMAGE_GRAYSCALE);
   if(!image.data)
 	{
 		std::cout << "nao abriu " << argv[1] << std::endl;
 	}
 
-	std::cout << "Define a region:" << "X1: ";
-	std::cin >> R1.p1.x;
-	std::cout << "Y1: ";
-	std::cin >> R1.p1.y;
-	std::cout << "X2: ";
-	std::cin >> R1.p2.x;
-	std::cout << "Y2: ";
-	std::cin >> R1.p2.y;
-	negRegion(R1,&image);
+	promptUser(&rect1,&image);
 
-	//cvNamedWindow("Window",CV_WINDOW_AUTOSIZE);
+  image= cv::imread(argv[1],CV_LOAD_IMAGE_GRAYSCALE);
+  if(!image.data)
+	{
+		std::cout << "[ERROR]: image " << argv[1] << "didn't load." << std::endl;
+	}
 
-  
-	cv::imshow("window", image);  
+	negRegion(&rect1,&image);
+	cvNamedWindow("Window",CV_WINDOW_AUTOSIZE);
+	cv::imshow("Window", image);  
   cvWaitKey();
 
   return 0;
 }
 
-void negRegion(Region reg,cv::Mat *img)
+void promptUser(cv::Rect* inputRect,cv::Mat* img)
 {
-  for(int i=reg.p1.y;i<reg.p2.y;i++)
+	std::cout << "Define a region.\n" << "X1: ";
+	std::cin >> inputRect->x;
+	std::cout << "Y1: ";
+	std::cin >> inputRect->y;
+	std::cout << "X2: ";
+	std::cin >> inputRect->width;
+	std::cout << "Y2: ";
+	std::cin >> inputRect->height;
+	if(inputRect->x > img->size().width || inputRect->width > img->size().width)
 	{
-    for(int j=reg.p1.x;j<reg.p2.x;j++)
+		std::cout << "Wrong X1 or X2 size, bigger than the image itself, try again, mate." << std::endl;
+		promptUser(inputRect,img);
+	}
+	else if(inputRect->y > img->size().height || inputRect->height > img->size().height)
+	{
+		std::cout << "Wrong Y1 or Y2 size, bigger than the image itself, try again, mate." << std::endl;
+		promptUser(inputRect,img);
+	}
+	else if(inputRect->y < 0 || inputRect->height < 0 || inputRect->x < 0 || inputRect->width < 0)
+	{
+		std::cout << "Really?? Negative dimensions?? Try again." << std::endl;
+		promptUser(inputRect,img);
+	}
+}
+
+void negRegion(cv::Rect* rect,cv::Mat *img)
+{
+  for(int i=rect->y;i<rect->height;i++)
+	{
+    for(int j=rect->x;j<rect->width;j++)
 		{
       img->at<uchar>(i,j)= (-1)* img->at<uchar>(i,j);
     }
