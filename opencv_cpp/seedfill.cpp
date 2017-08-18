@@ -39,7 +39,8 @@ int main(int argc, char *argv[])
 	}
 	
 }
-void seedfill(cv::Mat img)
+void seedfill(cv::Mat* img)
 {
-
+	cv::Rect imageRect;
+	imageRect.
 }
