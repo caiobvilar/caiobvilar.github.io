@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[])
 {
-	cv::Mat image;
+	cv::Mat image,quad0,quad1,quad2,quad3;
 	std::vector<cv::Mat> quadrants;
 	std::vector<cv::Mat>::iterator quadrantsITR;
 
@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 	{
 		std::cout << "[ERROR]: image " << argv[1] << "didn't load." << std::endl;
 	}
-
+	cv::Mat imageAux //auxiliary matrix for quadrant capture
 	quadrants.push_back(cv::Mat(image.size().width/2,image.size().height/2,CV_8U)); //first quadrant
 	quadrants.push_back(cv::Mat(image.size().width/2,image.size().height/2,CV_8U)); //second quadrant
 	quadrants.push_back(cv::Mat(image.size().width/2,image.size().height/2,CV_8U)); //third quadrant
