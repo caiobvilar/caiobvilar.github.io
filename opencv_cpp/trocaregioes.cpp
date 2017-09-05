@@ -1,6 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include <highgui.h>
+#include <opencv/highgui.h>
 #include <vector>
 #include <algorithm>
 
@@ -17,12 +17,16 @@ int main(int argc, char* argv[])
 	{
 		std::cout << "[ERROR]: image " << argv[1] << "didn't load." << std::endl;
 	}
-	cv::Mat imageAux //auxiliary matrix for quadrant capture
-	quadrants.push_back(cv::Mat(image.size().width/2,image.size().height/2,CV_8U)); //first quadrant
-	quadrants.push_back(cv::Mat(image.size().width/2,image.size().height/2,CV_8U)); //second quadrant
-	quadrants.push_back(cv::Mat(image.size().width/2,image.size().height/2,CV_8U)); //third quadrant
-	quadrants.push_back(cv::Mat(image.size().width/2,image.size().height/2,CV_8U)); //fourth quadrant
+	cv::Mat imageAux; //auxiliary matrix for quadrant capture
 
+	quadrants.push_back(cv::Mat(cv::Rect(0,0,image.size().width/2,image.size().height/2))); //first quadrant
+	quadrants.push_back(cv::Mat(cv::Rect(image.size().width/2,0,image.size().width/2,image.size().height/2))); //second quadrant
+	quadrants.push_back(cv::Mat(cv::Rect(0,image.size().height/2,image.size().width/2,image.size().height/2))); //third quadrant
+	quadrants.push_back(cv::Mat(cv::Rect(image.size().width/2,image.size().height/2,image.size().width/2,image.size().height/2))); //fourth quadrant
+	for(quadrantsITR = quadrants.begin(); quadrantsITR != quadrants.end();quadrantsITR++)
+	{
+		image.copyTo((*quadrantsITR));
+	}
 
 	cvNamedWindow("Window",CV_WINDOW_AUTOSIZE);
 	cv::imshow("Window", image);  
