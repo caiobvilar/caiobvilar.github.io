@@ -10,7 +10,8 @@ int main(int argc, char** argv){
 	cv::CvPoint p;
 	image = imread(argv[1],CV_LOAD_IMAGE_GRAYSCALE);
 
-	if(!image.data){
+	if(!image.data)
+	{
 		std::cout << "imagem nao carregou corretamente\n";
 		return(-1);
 	}
@@ -22,9 +23,12 @@ int main(int argc, char** argv){
 
 	// busca objetos com buracos presentes
 	nobjects=0;
-	for(int i=0; i<height; i++){
-		for(int j=0; j<width; j++){
-			if(image.at<uchar>(i,j) == 255){
+	for(int i=0; i<height; i++)
+	{
+		for(int j=0; j<width; j++)
+		{
+			if(image.at<uchar>(i,j) == 255)
+			{
 				// achou um objeto
 				nobjects++;
 				p.x=j;
@@ -33,30 +37,25 @@ int main(int argc, char** argv){
 			}
 		}
 	}
+
 	cv::imshow("image", image);
 	cv::imwrite("labeling.png", image);
 	cvwaitKey();
+
 	return 0;
 }
 
-void seedfill(cv::Mat* inputImg)
+void seedfill(cv::Mat *inputimg,cv::CvPoint *point,int *target_color,int *replace_color)
 {
-	int region_grayscale = 0;
-	std::queue<cv::CvPoint> vizinhos;
-	for(int i = 0;i < inputImg->size().width;i++)
+	if(inputimg->at<uchar>(point->x,point->y) == target_color)
 	{
-		for(int j = 0;j < inputImg->size().height;j++)
-		{
-
-			if(image.at<uchar>(i,j) == 255)
-			{
-				image.at<uchar>(i,j) == region_grayscale;
-				region_grayscale++;
-			}
-			if(i== 0 && j == 0)
-			{
-				if(image.at<uchar>(i))
-			}
-		}
+		return;
 	}
+	else
+	{
+		inputimg->at<uchar>(point->x,point->y) = replace_color;
+	}
+	point->x+1;
+	seedfill(inputimg,point,target_color,replace_color);
+	
 }

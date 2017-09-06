@@ -19,7 +19,8 @@ int main(int argc, char** argv)
 
 	cap.open(0);
 
-	if(!cap.isOpened()){
+	if(!cap.isOpened())
+	{
 		cout << "cameras indisponiveis";
 		return -1;
 	}
@@ -62,7 +63,7 @@ int main(int argc, char** argv)
 		histImgG.copyTo(image(Rect(0,histh,nbins, histh)));
 		histImgB.copyTo(image(Rect(0, 2*histh ,nbins, histh)));
 		imshow("image", image);
-		if(waitKey(30) >= 0) break;
+		if(cvWaitKey(27) >= 0) break;
 	}
 	return 0;
 }

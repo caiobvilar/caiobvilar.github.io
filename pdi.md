@@ -9,6 +9,6 @@ g++ codigo_fonte.cpp -o nome_do_programa `pkg-config opencv --cflags --libs`
 ```
 # [](#header-1) [Pixels](pixels)
 
-# [](#header-2) [Troca de Regiões](trocaregioes)
+# [](#header-1) [Troca de Regiões](trocaregioes)
 
-[back](./)
+[Volta](./)
