@@ -1,16 +1,3 @@
----
-layout: default
----
-
-## Processamento Digital de Imagens
-
-# [](#header-1) Pixels
-
-Este exercício tem como objetivo demonstrar a estrutura de cv::Mat(uma matriz) do OpenCV e como podemos manipulá-la. Toda imagem no OpenCV é definida por uma matriz cv::Mat.
-
-O exercício proposto envolve utilizar-se do código denominado pixels.cpp, 
-
-```cpp
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <highgui.h>
@@ -82,10 +69,3 @@ void negRegion(cv::Rect* rect,cv::Mat *img)
     }
   }
 }
-
-```
-O mesmo tem o objetivo de propor ao usuário definir uma região da imagem que ele queira visualizar como negativo, de forma que, seja a imagem
-
-[](https://caiobvilar.github.io/images/grayscale-tea.jpeg)
-
-[back](./)

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Random Thoughts of an Engineer | someplace to discuss stuff I like and sometimes showcase my work</title>
+<meta property="og:title" content="Random Thoughts of an Engineer" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="someplace to discuss stuff I like and sometimes showcase my work" />
+<meta property="og:description" content="someplace to discuss stuff I like and sometimes showcase my work" />
+<link rel="canonical" href="http://localhost:4000/pdi.html" />
+<meta property="og:url" content="http://localhost:4000/pdi.html" />
+<meta property="og:site_name" content="Random Thoughts of an Engineer" />
+<script type="application/ld+json">
+{"name":null,"description":"someplace to discuss stuff I like and sometimes showcase my work","author":null,"@type":"WebPage","url":"http://localhost:4000/pdi.html","publisher":null,"image":null,"headline":"Random Thoughts of an Engineer","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/assets/js/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Random Thoughts of an Engineer</h1>
+          <p>someplace to discuss stuff I like and sometimes showcase my work</p>
+          <hr>
+        </div>
+
+        <h2 id="processamento-digital-de-imagens">Processamento Digital de Imagens</h2>
+
+<h1 id="-pixels"><a href="#header-1"></a> Pixels</h1>
+
+<p>Este exercício tem como objetivo demonstrar a estrutura de cv::Mat(uma matriz) do OpenCV e como podemos manipulá-la. Toda imagem no OpenCV é definida por uma matriz cv::Mat.</p>
+
+<p>O exercício proposto envolve utilizar-se do código denominado pixels.cpp,</p>
+
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;highgui.h&gt;
+</span>
+<span class="kt">void</span> <span class="n">negRegion</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Rect</span><span class="o">*</span> <span class="n">rect</span><span class="p">,</span> <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">*</span> <span class="n">img</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">promptUser</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Rect</span> <span class="o">*</span><span class="n">inputRect</span><span class="p">,</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">*</span> <span class="n">img</span><span class="p">);</span> 
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+	<span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="n">image</span><span class="p">;</span>
+	<span class="n">cv</span><span class="o">::</span><span class="n">Rect</span> <span class="n">rect1</span><span class="p">;</span>
+
+  <span class="n">image</span><span class="o">=</span> <span class="n">cv</span><span class="o">::</span><span class="n">imread</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">CV_LOAD_IMAGE_GRAYSCALE</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">image</span><span class="p">.</span><span class="n">data</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"nao abriu "</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">promptUser</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rect1</span><span class="p">,</span><span class="o">&amp;</span><span class="n">image</span><span class="p">);</span>
+
+  <span class="n">image</span><span class="o">=</span> <span class="n">cv</span><span class="o">::</span><span class="n">imread</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">CV_LOAD_IMAGE_GRAYSCALE</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">image</span><span class="p">.</span><span class="n">data</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"[ERROR]: image "</span> <span class="o">&lt;&lt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">"didn't load."</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">negRegion</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rect1</span><span class="p">,</span><span class="o">&amp;</span><span class="n">image</span><span class="p">);</span>
+	<span class="n">cvNamedWindow</span><span class="p">(</span><span class="s">"Window"</span><span class="p">,</span><span class="n">CV_WINDOW_AUTOSIZE</span><span class="p">);</span>
+	<span class="n">cv</span><span class="o">::</span><span class="n">imshow</span><span class="p">(</span><span class="s">"Window"</span><span class="p">,</span> <span class="n">image</span><span class="p">);</span>  
+  <span class="n">cvWaitKey</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">promptUser</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Rect</span><span class="o">*</span> <span class="n">inputRect</span><span class="p">,</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">*</span> <span class="n">img</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Define a region.</span><span class="se">\n</span><span class="s">"</span> <span class="o">&lt;&lt;</span> <span class="s">"X1: "</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Y1: "</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"X2: "</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Y2: "</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">;</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">img</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">().</span><span class="n">width</span> <span class="o">||</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">&gt;</span> <span class="n">img</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">().</span><span class="n">width</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Wrong X1 or X2 size, bigger than the image itself, try again, mate."</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+		<span class="n">promptUser</span><span class="p">(</span><span class="n">inputRect</span><span class="p">,</span><span class="n">img</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">img</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">().</span><span class="n">height</span> <span class="o">||</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">&gt;</span> <span class="n">img</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">().</span><span class="n">height</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Wrong Y1 or Y2 size, bigger than the image itself, try again, mate."</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+		<span class="n">promptUser</span><span class="p">(</span><span class="n">inputRect</span><span class="p">,</span><span class="n">img</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">inputRect</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Really?? Negative dimensions?? Try again."</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+		<span class="n">promptUser</span><span class="p">(</span><span class="n">inputRect</span><span class="p">,</span><span class="n">img</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">negRegion</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Rect</span><span class="o">*</span> <span class="n">rect</span><span class="p">,</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="o">*</span><span class="n">img</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">rect</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">rect</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">rect</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">rect</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+		<span class="p">{</span>
+      <span class="n">img</span><span class="o">-&gt;</span><span class="n">at</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="n">img</span><span class="o">-&gt;</span><span class="n">at</span><span class="o">&lt;</span><span class="n">uchar</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre>
+</div>
+<p>O mesmo tem o objetivo de propor ao usuário definir uma região da imagem que ele queira visualizar como negativo, de forma que, seja a imagem</p>
+
+<p><a href="https://caiobvilar.github.io/images/grayscale-tea.jpeg"></a></p>
+
+<p><a href="./">back</a></p>
+
+
+      </section>
+
+    </div>
+
+    
+  </body>
+</html>
