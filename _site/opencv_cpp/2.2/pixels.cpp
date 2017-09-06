@@ -25,8 +25,10 @@ int main(int argc, char* argv[])
 	}
 
 	negRegion(&rect1,&image);
+
 	cvNamedWindow("Window",CV_WINDOW_AUTOSIZE);
-	cv::imshow("Window", image);  
+	cv::imshow("Window", image);
+	cv::imwrite("bielneg.png",image);
   cvWaitKey();
 
   return 0;
@@ -34,6 +36,7 @@ int main(int argc, char* argv[])
 
 void promptUser(cv::Rect* inputRect,cv::Mat* img)
 {
+	std::cout << "Image Dimensions[Width: " << img->size().width << " | Height: " << img->size().height << " ]" << std::endl;
 	std::cout << "Define a region.\n" << "X1: ";
 	std::cin >> inputRect->x;
 	std::cout << "Y1: ";
