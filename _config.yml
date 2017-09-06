@@ -20,7 +20,7 @@ description: website that I come to showcase stuff I did and discuss stuff I fin
 baseurl: # the optional subpath of your site, e.g. "/blog"
 url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 author: Caio Vilar
-  name: Caio
+  name:
   twitter: caiobvilar
   picture:
 twitter_username: caiobvilar
