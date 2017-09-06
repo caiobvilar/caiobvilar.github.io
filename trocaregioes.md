@@ -3,6 +3,9 @@ layout: default
 ---
 
 ## Troca de Regiões
+
+O código abaixo propõe uma solução para que seja possível trocar quadrantes de uma imagem, de forma que 
+
 ```cpp
 
 #include <iostream>
