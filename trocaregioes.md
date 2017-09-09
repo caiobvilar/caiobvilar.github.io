@@ -4,7 +4,7 @@ layout: default
 
 ## Troca de Regiões
 
-O código abaixo propõe uma solução para que seja possível trocar quadrantes de uma imagem, de forma que 
+O código abaixo propõe uma solução para que seja possível trocar quadrantes de uma imagem, de forma que a imagem resultante seja uma composição das 4 regiões principais da imagem de entrada.
 
 ```cpp
 
@@ -76,3 +76,10 @@ int main(int argc, char* argv[])
 }
 
 ```
+A imagem utilizada abaixo foi recebida pelo programa, processada e exibida com os quadrantes trocados em diagonal.
+
+![Imagem Original](opencv_cpp/images/biel.png)
+
+Trocando o primeiro quadrante, pelo quarto e o segundo pelo terceiro, obteve-se:
+
+![Imagem Processada](opencv_cpp/2.2/changequad.png)

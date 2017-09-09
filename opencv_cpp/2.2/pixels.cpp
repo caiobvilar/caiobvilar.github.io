@@ -30,7 +30,6 @@ int main(int argc, char* argv[])
 	cv::imshow("Window", image);
 	cv::imwrite("bielneg.png",image);
   cvWaitKey();
-
   return 0;
 }
 

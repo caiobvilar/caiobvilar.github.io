@@ -55,7 +55,8 @@ void seedfill(cv::Mat *inputimg,cv::CvPoint *point,int *target_color,int *replac
 	{
 		inputimg->at<uchar>(point->x,point->y) = replace_color;
 	}
-	point->x+1;
+	point->y-1;
 	seedfill(inputimg,point,target_color,replace_color);
-	
+	point->y-1
+
 }

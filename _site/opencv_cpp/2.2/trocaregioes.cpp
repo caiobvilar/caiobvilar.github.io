@@ -1,8 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv/highgui.h>
-#include <vector>
-#include <algorithm>
 
 int main(int argc, char* argv[])
 {
@@ -36,29 +34,30 @@ int main(int argc, char* argv[])
 															 image.size().width/2,
 															 image.size().height/2));
 
-	quad1.copyTo(imgaux(cv::Rect(0,
-															 0,
+	quad1.copyTo(imgaux(cv::Rect(image.size().width/2,
+															 image.size().height/2,
 															 image.size().width/2,
 															 image.size().height/2)));
 
-	quad2.copyTo(imgaux(cv::Rect(image.size().width/2,
-															 0,
+	quad2.copyTo(imgaux(cv::Rect(0,
+															 image.size().height/2,
 															 image.size().width/2,
 															 image.size().height/2)));
 
 	quad3.copyTo(imgaux(cv::Rect(image.size().width/2,
-															 image.size().height/2,
+															 0,
 															 image.size().width/2,
 															 image.size().height/2)));
 
 	quad4.copyTo(imgaux(cv::Rect(0,
-															 image.size().height/2,
+															 0,
 															 image.size().width/2,
 															 image.size().height/2)));
 	
 	cvNamedWindow("Window",CV_WINDOW_AUTOSIZE);
 
 	cv::imshow("Window",imgaux );
+	cv::imwrite("changequad.png",imgaux);
 
   cvWaitKey();
 
